@@ -3,7 +3,7 @@ from flask import render_template
 from flask import Response
 import cv2
 app = Flask(__name__)
-cap = cv2.VideoCapture(1)
+cap = cv2.VideoCapture(0)
 #face_detector = cv2.CascadeClassifier('haarcascade_frontalface_default.xml')
 def generate():
      while True:

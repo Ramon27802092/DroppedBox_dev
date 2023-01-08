@@ -8,8 +8,7 @@ import json
 import time
 from firebase_admin import credentials
 from firebase_admin import db
-
-#import pyrebase 
+import pyrebase 
 
 
 """
@@ -45,7 +44,7 @@ firebase = pyrebase.initialize_app(config)
 
 storage = firebase.storage()
 
-db=firebase.database()
+#db=firebase.database()
 
 referencia_db = 'LoginSignup/usuarioRamon1644/pedidos'
 ref_imagen = referencia_db + "/urls"
@@ -67,7 +66,7 @@ usuario = 'usuario'+user
 #db.child("LoginSignup").child("Ramon1644").child("urls").child("ipglobal").update(VpnNgrok)
 
 app = Flask(__name__)
-cap = cv2.VideoCapture(1)
+cap = cv2.VideoCapture(0)
 #face_detector = cv2.CascadeClassifier('haarcascade_frontalface_default.xml')
 def generate():
      while True:
