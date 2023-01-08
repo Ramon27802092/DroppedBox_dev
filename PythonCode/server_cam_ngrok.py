@@ -9,7 +9,10 @@ import time
 from firebase_admin import credentials
 from firebase_admin import db
 import pyrebase 
+import socket
 
+# Retardo para que la tarjeta se conecte
+#time.sleep(20)
 
 """
 Tunel con ngrok 
@@ -21,7 +24,12 @@ tunnels = ngrok.get_tunnels() # Obtenemos los tuneles abiertos
 vpn = tunnels[1].__str__()    # Guardamos en formato string el valor 1 de la lista 
 VpnNgrok=vpn[vpn.find('http'):vpn.find('ngrok.io')+8]  # Otenemos solo la url
 print(VpnNgrok)
-
+"""
+Se obtiene ip address 
+"""
+s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+s.connect(("8.8.8.8", 80))
+print(s.getsockname()[0])
 """
 Conexion con base de datos para enviar 
 """
@@ -39,31 +47,21 @@ firebase_admin.initialize_app(cred,{
     'databaseURL' : 'https://ventanaiot-56921-default-rtdb.firebaseio.com/'
 })
 
-# Config base de datos de archivos (imagenes)
-firebase = pyrebase.initialize_app(config)
-
-storage = firebase.storage()
-
-#db=firebase.database()
-
-referencia_db = 'LoginSignup/usuarioRamon1644/pedidos'
-ref_imagen = referencia_db + "/urls"
-ref_db_imagen = db.reference(ref_imagen)
-ref_db_imagen.update({
-'accion': 'ok',
-     'pedido': VpnNgrok
-     })
-"""
+# Credenciales de usuario 
 with open('Credenciales.json') as f: 
         data = json.load(f)
 
-user =  data['usuario']  # Se obtiene valor de usuario 
+usuario =  data['usuario']  # Se obtiene valor de usuario
 
-db=firebase.database()
-
-usuario = 'usuario'+user
-"""
-#db.child("LoginSignup").child("Ramon1644").child("urls").child("ipglobal").update(VpnNgrok)
+# Config base de datos de archivos (imagenes)
+firebase = pyrebase.initialize_app(config)
+referencia_db = 'LoginSignup/usuario'+usuario #referencia_db = 'LoginSignup/usuarioRamon1644'
+ref_urls = referencia_db + "/urls"
+ref_db_urls = db.reference(ref_urls)
+ref_db_urls.update({
+	'ipglector': VpnNgrok,
+     	'ipllector': s.getsockname()[0]
+     	})
 
 app = Flask(__name__)
 cap = cv2.VideoCapture(0)
