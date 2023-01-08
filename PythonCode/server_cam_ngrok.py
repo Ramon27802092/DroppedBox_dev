@@ -7,8 +7,8 @@ import firebase_admin
 import json
 import time
 from firebase_admin import credentials
-from firebase_admin import db
-import pyrebase 
+#from firebase_admin import db
+import pyrebase
 
 
 """
@@ -56,7 +56,7 @@ db=firebase.database()
 
 usuario = 'usuario'+user
 """
-db.child("LoginSignup").child("Ramon1644").child("urls").child("ipglobal").update(VpnNgrok)
+db.child("LoginSignup").child("usuarioRamon1644").child("urls").child("ipglobal").update(VpnNgrok)
 
 app = Flask(__name__)
 cap = cv2.VideoCapture(1)
