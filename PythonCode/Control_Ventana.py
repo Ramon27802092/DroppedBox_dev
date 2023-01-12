@@ -80,7 +80,7 @@ Este dispositivo solo la lista temporal_estado y temporal_pedido
 """
 #path_on_cloud = "imagen/foo.jpg"
 #path_local = "Foto.jpg"
-dato_apertura="Abrir\n"
+dato_apertura="Abrir"
 while True:
     time.sleep(5)
     temporal_estado = ref_estado.get()
@@ -92,6 +92,9 @@ while True:
         #ser.write(dato_apertura.encode())
         #ser.close()
         """
+	ser = serial.Serial('/dev/ttyACM0', 115200)
+        ser.write(bytes(dato_apertura, 'UTF-8'))
+        ser.close()
         # Actualizamos estado de accion de ok por na
         ref_accion.update({
             'accion': 'na'
