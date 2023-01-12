@@ -51,7 +51,8 @@ firebase_admin.initialize_app(cred,{
 with open('Credenciales.json') as f: 
         data = json.load(f)
 
-usuario =  data['usuario']  # Se obtiene valor de usuario
+usuario_temporal =  data['usuario']  # Se obtiene valor de usuario
+usuario = usuario_temporal.replace(".","+")
 
 # Config base de datos de archivos (imagenes)
 firebase = pyrebase.initialize_app(config)
