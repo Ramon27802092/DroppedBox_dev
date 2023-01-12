@@ -4,9 +4,9 @@ import time
 from firebase_admin import credentials
 from firebase_admin import db
 import cv2 as cv
-import pyrebase 
+import pyrebase
 import serial
-from datetime import datetime 
+from datetime import datetime
 
 # Estructura de configuracion base de datos para almacenar imagenes
 config = {
@@ -36,7 +36,7 @@ with open('Credenciales.json') as f:
     data = json.load(f)
 
 usuario =  data['usuario']  # Se obtiene valor de usuario
-usuario_temporal = usuario.replace("."+"+") 
+usuario_temporal = usuario.replace(".","+") 
 
 # Concatenamos referencia de base de datos
 referencia_db = 'LoginSignup/usuario'+usuario+'/pedidos'
@@ -82,27 +82,25 @@ Este dispositivo solo la lista temporal_estado y temporal_pedido
 #path_local = "Foto.jpg"
 dato_apertura="Abrir"
 while True:
-    time.sleep(5)
-    temporal_estado = ref_estado.get()
-    temporal_pedido = ref_pedido.get()
+	time.sleep(5)
+	temporal_estado = ref_estado.get()
+	temporal_pedido = ref_pedido.get()
     # Si temporal estado es ok, se comienza el proceso de apertura
-    if temporal_estado == substring:
-	    ser = serial.Serial('/dev/ttyACM0', 115200)
-        ser.write(bytes(dato_apertura, 'UTF-8'))
-        ser.close()
-        # Actualizamos estado de accion de ok por na
-        ref_accion.update({
-            'accion': 'na'
-        })
-        print("Actualizacion de estado inicio")         
-        ref_imagen = referencia_db + "/pedidos" + str(temporal_pedido)
-        ref_db_imagen = db.reference(ref_imagen)
-        ref_db_imagen.update({
-            'Imagen': n_foto,
-            'Status': 'Entregado'
-            })
-        print("Proceso de apertura")
-        
-    else:
-        print("En espera")
-        
+	if temporal_estado == substring:
+		ser = serial.Serial('/dev/ttyACM0', 115200)
+		ser.write(bytes(dato_apertura,'UTF-8'))
+		ser.close()
+        	# Actualizamos estado de accion de ok por na
+		ref_accion.update({
+            	'accion': 'na'
+        	})
+		print("Actualizacion de estado inicio")
+		ref_imagen = referencia_db + "/pedidos" + str(temporal_pedido)
+		ref_db_imagen = db.reference(ref_imagen)
+		ref_db_imagen.update({
+            	'Imagen': n_foto,
+            	'Status': 'Entregado'
+		})
+		print("Proceso de apertura")
+	else:
+        	print("En espera")
