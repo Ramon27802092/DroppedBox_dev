@@ -40,8 +40,8 @@ def inicializacion():
     with open('Credenciales.json') as f: 
         data = json.load(f)
 
-    usuario =  data['usuario']  # Se obtiene valor de usuario 
-
+    usuario_temporal =  data['usuario']  # Se obtiene valor de usuario 
+    usuario = usuario_temporal.replace(".","+")
     # Concatenamos referencia de base de datos
     referencia_db = 'LoginSignup/usuario'+usuario+'/pedidos'
     accion_db = 'LoginSignup/usuario'+usuario+'/estado'
