@@ -87,7 +87,7 @@ while True:
     temporal_pedido = ref_pedido.get()
     # Si temporal estado es ok, se comienza el proceso de apertura
     if temporal_estado == substring:
-	ser = serial.Serial('/dev/ttyACM0', 115200)
+	    ser = serial.Serial('/dev/ttyACM0', 115200)
         ser.write(bytes(dato_apertura, 'UTF-8'))
         ser.close()
         # Actualizamos estado de accion de ok por na
