@@ -87,11 +87,6 @@ while True:
     temporal_pedido = ref_pedido.get()
     # Si temporal estado es ok, se comienza el proceso de apertura
     if temporal_estado == substring:
-        """ Codigo necesario para arduino, revisar puerto correcto
-        #ser = serial.Serial('COM11', 9600)
-        #ser.write(dato_apertura.encode())
-        #ser.close()
-        """
 	ser = serial.Serial('/dev/ttyACM0', 115200)
         ser.write(bytes(dato_apertura, 'UTF-8'))
         ser.close()
